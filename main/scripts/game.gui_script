@@ -1,0 +1,128 @@
+
+local WHITE_DICE = {'dieWhite_border1',
+'dieWhite_border2',
+'dieWhite_border3',
+'dieWhite_border4',
+'dieWhite_border5',
+'dieWhite_border6'}
+local RED_DICE = {'dieRed_border1',
+'dieRed_border2',
+'dieRed_border3',
+'dieRed_border4',
+'dieRed_border5',
+'dieRed_border6'}
+local GAME_ATLAS = 'sprites'
+math.randomseed(os.time())
+
+--Анимация кубика
+local function anim_dice(dice_node,time_drop,color_dice_anim)
+	gui.set_texture(dice_node, GAME_ATLAS)
+	gui.play_flipbook(dice_node, color_dice_anim)
+	timer.delay(time_drop, false, function() gui.cancel_flipbook(dice_node) end)
+end
+--Получаем случайное число на кубике
+local function get_random_number() 
+	return math.random(1,6)
+end
+
+local function set_dice_side(dice_number,dice,color_dice) 
+	for i = 1,#color_dice do
+		if dice_number == i then
+			gui.play_flipbook(dice, color_dice[i])
+		end
+	end
+end
+
+--Ход игрока
+local function player_turn(self)
+	sound.play('#drop_dice')
+	anim_dice(self.player_dice_one,1,'white_dice_anim')
+	anim_dice(self.player_dice_two,1,'white_dice_anim')
+	
+	self.player_dice_one_number = get_random_number()
+	self.player_dice_two_number = get_random_number()
+	print('первый кубик:'..self.player_dice_one_number)
+	print('второй кубик:'..self.player_dice_two_number)
+	timer.delay(1, false, function() set_dice_side(self.player_dice_one_number, self.player_dice_one,WHITE_DICE) end)
+	timer.delay(1, false, function() set_dice_side(self.player_dice_two_number, self.player_dice_two,WHITE_DICE) end)
+	self.player_result = self.player_dice_one_number + self.player_dice_two_number
+end
+
+--Ход оппонента
+local function enemy_turn(self)
+	sound.play('#drop_dice')
+	anim_dice(self.enemy_dice_one,1,'red_dice_anim')
+	anim_dice(self.enemy_dice_two,1,'red_dice_anim')
+
+	self.enemy_dice_one_number = get_random_number()
+	self.enemy_dice_two_number = get_random_number()
+	print('первый кубик:'..self.enemy_dice_one_number)
+	print('второй кубик:'..self.enemy_dice_two_number)
+	timer.delay(1, false, function() set_dice_side(self.enemy_dice_one_number, self.enemy_dice_one,RED_DICE) end)
+	timer.delay(1, false, function() set_dice_side(self.enemy_dice_two_number, self.enemy_dice_two,RED_DICE) end)
+	self.enemy_result = self.enemy_dice_one_number + self.enemy_dice_two_number
+end
+
+--Подсчет очков
+local function result_scores(self)
+	if self.player_result > self.enemy_result then
+		self.player_score = self.player_score + 1
+		gui.set_text(self.player_text_score,'СЧЕТ ИГРОКА: '..self.player_score)
+	elseif self.player_result < self.enemy_result then
+		self.enemy_score = self.enemy_score + 1
+		gui.set_text(self.enemy_text_score,'СЧЕТ ОППОНЕНТА: '..self.enemy_score)
+	end
+end
+
+local function btn_disabled(self)
+	self.btn_enabled = false
+	local color = gui.get_color(self.btn)
+	gui.animate(self.btn, gui.PROP_COLOR, vmath.vector4(color.x,color.y,color.z,0.5), gui.EASING_LINEAR, 0.3)
+end
+
+local function btn_enabled(self)
+	self.btn_enabled = true 
+	gui.set_alpha(self.btn, 1)
+end
+
+function init(self)
+	self.btn = gui.get_node('button')
+	self.btn_enabled = true
+	--Кубики игрока
+	self.player_dice_one = gui.get_node('player_dice_one')
+	self.player_dice_two = gui.get_node('player_dice_two')
+	self.player_text_score = gui.get_node('player_score')
+	self.player_dice_one_number= 0
+	self.player_dice_two_number= 0
+	self.player_result = 0
+	self.player_score = 0
+	--Кубики оппонента
+	self.enemy_dice_one = gui.get_node('enemy_dice_one')
+	self.enemy_dice_two = gui.get_node('enemy_dice_two')
+	self.enemy_text_score = gui.get_node('enemy_score')
+	self.enemy_dice_one_number= 0
+	self.enemy_dice_two_number= 0
+	self.enemy_result = 0
+	self.enemy_score = 0
+	msg.post(".", "acquire_input_focus")
+end
+
+function on_message(self, message_id, message, sender)
+	-- Add message-handling code here
+	-- Learn more: https://defold.com/manuals/message-passing/
+	-- Remove this function if not needed
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash('touch')  then
+		if gui.pick_node(self.btn, action.x, action.y) and action.pressed and self.btn_enabled then
+			btn_disabled(self)
+			--Кидает кубики первый игрок
+			player_turn(self)
+			--Кидает кубики второй игрок
+			timer.delay(2, false, function() enemy_turn(self) end)
+			--Подсчет очков
+			timer.delay(3.5, false, function() result_scores(self) btn_enabled(self) end)
+		end
+	end
+end

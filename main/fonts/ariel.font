@@ -1,0 +1,5 @@
+font: "/main/fonts/ARIAL.TTF"
+material: "/builtins/fonts/font.material"
+size: 30
+all_chars: true
+characters: " !\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"

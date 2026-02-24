@@ -1,0 +1,117 @@
+script: "/main/scripts/game.gui_script"
+fonts {
+  name: "ariel"
+  font: "/main/fonts/ariel.font"
+}
+textures {
+  name: "sprites"
+  texture: "/main/atlases/sprites.atlas"
+}
+nodes {
+  position {
+    x: 467.0
+    y: 105.0
+  }
+  size {
+    x: 300.0
+    y: 50.0
+  }
+  color {
+    x: 0.4
+    y: 0.102
+    z: 0.2
+  }
+  type: TYPE_BOX
+  id: "button"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "\320\221\320\240\320\236\320\241\320\230\320\242\320\254 \320\232\320\243\320\221\320\230\320\232\320\230\n"
+  ""
+  font: "ariel"
+  id: "text"
+  parent: "button"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 402.0
+    y: 292.0
+  }
+  type: TYPE_BOX
+  texture: "sprites/dieWhite_border1"
+  id: "player_dice_one"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 532.0
+    y: 292.0
+  }
+  type: TYPE_BOX
+  texture: "sprites/dieWhite_border1"
+  id: "player_dice_two"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 402.0
+    y: 448.0
+  }
+  type: TYPE_BOX
+  texture: "sprites/dieRed_border1"
+  id: "enemy_dice_one"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 532.0
+    y: 448.0
+  }
+  type: TYPE_BOX
+  texture: "sprites/dieRed_border1"
+  id: "enemy_dice_two"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 467.0
+    y: 204.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "\320\241\320\247\320\225\320\242 \320\230\320\223\320\240\320\236\320\232\320\220: 0"
+  font: "ariel"
+  id: "player_score"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 467.0
+    y: 538.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "\320\241\320\247\320\225\320\242 \320\236\320\237\320\237\320\236\320\235\320\225\320\235\320\242\320\220: 0"
+  font: "ariel"
+  id: "enemy_score"
+  inherit_alpha: true
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

@@ -1,0 +1,86 @@
+images {
+  image: "/main/sprites/board.png"
+}
+images {
+  image: "/main/sprites/red_dice/dieRed_border1.png"
+}
+images {
+  image: "/main/sprites/red_dice/dieRed_border2.png"
+}
+images {
+  image: "/main/sprites/red_dice/dieRed_border3.png"
+}
+images {
+  image: "/main/sprites/red_dice/dieRed_border4.png"
+}
+images {
+  image: "/main/sprites/red_dice/dieRed_border5.png"
+}
+images {
+  image: "/main/sprites/red_dice/dieRed_border6.png"
+}
+images {
+  image: "/main/sprites/white_dice/dieWhite_border1.png"
+}
+images {
+  image: "/main/sprites/white_dice/dieWhite_border2.png"
+}
+images {
+  image: "/main/sprites/white_dice/dieWhite_border3.png"
+}
+images {
+  image: "/main/sprites/white_dice/dieWhite_border4.png"
+}
+images {
+  image: "/main/sprites/white_dice/dieWhite_border5.png"
+}
+images {
+  image: "/main/sprites/white_dice/dieWhite_border6.png"
+}
+animations {
+  id: "white_dice_anim"
+  images {
+    image: "/main/sprites/white_dice/dieWhite_border1.png"
+  }
+  images {
+    image: "/main/sprites/white_dice/dieWhite_border2.png"
+  }
+  images {
+    image: "/main/sprites/white_dice/dieWhite_border3.png"
+  }
+  images {
+    image: "/main/sprites/white_dice/dieWhite_border4.png"
+  }
+  images {
+    image: "/main/sprites/white_dice/dieWhite_border5.png"
+  }
+  images {
+    image: "/main/sprites/white_dice/dieWhite_border6.png"
+  }
+  playback: PLAYBACK_LOOP_PINGPONG
+  fps: 18
+}
+animations {
+  id: "red_dice_anim"
+  images {
+    image: "/main/sprites/red_dice/dieRed_border1.png"
+  }
+  images {
+    image: "/main/sprites/red_dice/dieRed_border2.png"
+  }
+  images {
+    image: "/main/sprites/red_dice/dieRed_border3.png"
+  }
+  images {
+    image: "/main/sprites/red_dice/dieRed_border4.png"
+  }
+  images {
+    image: "/main/sprites/red_dice/dieRed_border5.png"
+  }
+  images {
+    image: "/main/sprites/red_dice/dieRed_border6.png"
+  }
+  playback: PLAYBACK_LOOP_PINGPONG
+  fps: 18
+}
+extrude_borders: 1
